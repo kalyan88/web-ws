@@ -1,5 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
@@ -12,4 +13,23 @@
 	<import resource="web-ws-data.xml" />
 	<context:component-scan base-package="com.ember.facade,com.ember.data.domain.services" />
 	<mvc:annotation-driven />
+	
+	<!-- freemarker config -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	  <property name="templateLoaderPath" value="/WEB-INF/templates/"/>
+	</bean>
+	
+	<!-- 
+	  View resolvers can also be configured with ResourceBundles or XML files. If you need
+	  different view resolving based on Locale, you have to use the resource bundle resolver.
+	-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	  <property name="cache" value="true"/>
+	  <property name="prefix" value=""/>
+	  <property name="suffix" value=".ftl"/>
+	</bean>
+	
+	<mvc:resources mapping="/js/**" location="WEB-INF/static/js/"/>
+    <mvc:resources mapping="/css/**" location="WEB-INF/static/css/"/>
+    <mvc:resources mapping="/js/lib/**" location="WEB-INF/static/js/lib/"/>
 </beans>
